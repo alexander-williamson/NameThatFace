@@ -1,0 +1,50 @@
+﻿@model NameThatFace.ViewModels.QuestionViewModel
+@{
+    ViewBag.Title = "Question " + Model.Id;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="question">
+    <h2>
+        Who is this?</h2>
+    <div class="question-face-holder">
+        <img src="~/Faces/@(Model.Username).jpg"/>
+        @{
+            using (Html.BeginForm("Answer", "Quiz/Hard", FormMethod.Get, new { @class = "form-horizontal submit-answer" }))
+            {
+            @Html.Hidden("id", Model.Id)
+            @Html.Hidden("start",  DateTime.Now.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds);
+            @Html.Hidden("finish", "");
+            <div class="control-group">
+                <label class="control-label" for="inputAnswer">
+                    This person is called:</label>
+                <div class="controls">
+                    <input type="text" class="answer" name="answer" id="answer" placeholder="Answer" />
+                    @Html.ValidationMessageFor(o => o.Answer)
+                </div>
+            </div>   
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" onclick="submitForm" class="btn">
+                        Answer</button>
+                </div>
+            </div>
+            }
+        }
+        
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                
+                $("input.answer:first").focus();
+
+                $("form.submit-answer").submit(function () {
+                    var ms = (new Date).getTime();
+                    $("input#finish").val(ms);
+                });
+
+            });
+
+        </script>
+
+    </div>
+</div>

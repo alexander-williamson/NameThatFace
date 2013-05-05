@@ -1,0 +1,84 @@
+﻿@using NameThatFace.Quiz
+@model NameThatFace.ViewModels.ResultsViewModel
+@{
+    ViewBag.Title = "Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Results</h2>
+</p>
+<h3>
+    You scored @Model.CorrectCount out of @Model.QuizInfo.Questions.Count</h3>
+<p>
+    @Html.ActionLink("Start New Quiz", "New", "Quiz")
+    <table class="quiz-results">
+        <thead>
+            <tr>
+                <th>
+                    Question #
+                </th>
+                <th>
+                    Picture
+                </th>
+                <th>
+                    Their name
+                </th>
+                <th>
+                    Your answer
+                </th>
+                <th>
+                    Result
+                </th>
+                <th>
+                    Letters incorrect
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                for (int i = 0; i < Model.QuizInfo.Questions.Count; i++)
+                {
+                    var question = Model.QuizInfo.Questions.ElementAt(i);
+                    var answers = (from o in Model.QuizInfo.PastAnswers where o.CorrectUsername.ToLower() == question.Key.ToLower() select o);
+                    var answer = answers.Count() > 0 ? answers.First().Answer : "";
+                    var distance = question.Value.PercentSimilar(answer);
+                <tr>
+                    <td>
+                        @(i)
+                    </td>
+                    <td>
+                        <img width="150" src="~/Faces/@(question.Key).jpg" alt="@(question.Value)"/>
+                    </td>
+                    <td>
+                        @(question.Value)
+                    </td>
+                    <td>
+                        @(answer)
+                    </td>
+                    @{
+                    if (distance == 0)
+                    {
+                        <td class="result-correct result">
+                            Correct!
+                        </td>
+                    }
+                    else if (distance < QuizManager.DistanceDifficulty)
+                    {
+                        <td class="result-nearly-correct result">
+                            Almost correct
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="result-wrong result">
+                            Wrong
+                        </td>
+                    }}
+                    <td>
+                        @distance
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>

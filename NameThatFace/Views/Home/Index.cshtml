@@ -1,0 +1,40 @@
+﻿@using NameThatFace.Quiz
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    
+    if (ViewBag.IsComplete)
+    {
+    <div class="index-results index-results-complete">
+        <h2>
+            Quiz Complete</h2>
+        <p>
+            @Html.ActionLink("View Quiz Results", "Results", "Quiz") |
+            @Html.ActionLink("Start New Quiz", "Index", "Quiz")
+        </p>
+    </div>
+    }
+    else if (ViewBag.InWork)
+    {
+    <div class="index-results index-results-inwork">
+        <h2>
+            Quiz in progress</h2>
+        <p>
+            @Html.ActionLink("Continue Quiz", "Continue", "Quiz")
+        </p>
+    </div>  
+    }
+    else
+    {
+    <div class="index-results index-results-new">
+        <h2>
+            Who do you know?</h2>
+        <p>
+            @Html.ActionLink("Start New Quiz", "Index", "Quiz")
+        </p>
+    </div> 
+    }
+    
+}

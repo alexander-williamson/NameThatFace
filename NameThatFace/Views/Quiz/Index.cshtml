@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Choose your Quiz</h2>
+@{
+    using (Html.BeginForm("New", "Quiz", FormMethod.Get))
+    {
+    
+    <div class="control-group">
+        <div class="controls">
+            <input type="radio" name="difficulty" id="easyDifficulty" value="easy" checked="checked">
+            <label class="control-label" for="easyDifficulty">
+                Easy</label>
+            <br />
+            <input type="radio" name="difficulty" id="hardDifficulty" value="hard">
+            <label class="control-label" for="hardDifficulty">
+                Hard</label>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Start</button>
+        </div>
+    </div>
+    
+    }
+}
