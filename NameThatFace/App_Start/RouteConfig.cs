@@ -22,6 +22,12 @@ namespace NameThatFace.App_Start
             );
 
             routes.MapRoute(
+                name: "QuizIndex",
+                url: "Quiz/{action}/{id}",
+                defaults: new { action = "Index", controller = "Quiz", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
