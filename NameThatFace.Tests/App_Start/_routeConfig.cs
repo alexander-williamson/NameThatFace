@@ -1,24 +1,26 @@
 ﻿using System.Web;
 using System.Web.Routing;
 using FakeItEasy;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NameThatFace.Tests.App_Start
 {
+    [TestClass]
     public class _routeConfig
     {
 
         private HttpContextBase _fakeContext;
-        private readonly RouteCollection _fakeRoutes;
+        private RouteCollection _fakeRoutes;
 
-        public _routeConfig()
+        [TestInitialize]
+        public void Initialise()
         {
             _fakeRoutes = new RouteCollection();
             NameThatFace.App_Start.RouteConfig.RegisterRoutes(_fakeRoutes);
             _fakeContext = A.Fake<HttpContextBase>();
         }
 
-        [Fact]
+        [TestMethod]
         public void DefaultRoute()
         {
             // assemble
@@ -26,13 +28,13 @@ namespace NameThatFace.Tests.App_Start
 
             // act
             var routeData = _fakeRoutes.GetRouteData(_fakeContext);
-
-            Assert.NotNull(routeData);
-            Assert.Equal("Home", routeData.Values["controller"]);
-            Assert.Equal("Index", routeData.Values["action"]);
+            
+            Assert.IsNotNull(routeData);
+            Assert.AreEqual("Home", routeData.Values["controller"]);
+            Assert.AreEqual("Index", routeData.Values["action"]);
         }
 
-        [Fact]
+        [TestMethod]
         public void QuizIndexRoute()
         {
             // assemble
@@ -41,12 +43,12 @@ namespace NameThatFace.Tests.App_Start
             // act
             var routeData = _fakeRoutes.GetRouteData(_fakeContext);
 
-            Assert.NotNull(routeData);
-            Assert.Equal("Quiz", routeData.Values["controller"]);
-            Assert.Equal("Index", routeData.Values["action"]);
+            Assert.IsNotNull(routeData);
+            Assert.AreEqual("Quiz", routeData.Values["controllerB"]);
+            Assert.AreEqual("Index", routeData.Values["action"]);
         }
 
-        [Fact]
+        [TestMethod]
         public void EasyQuizIndexRoute()
         {
             // assemble
@@ -55,12 +57,12 @@ namespace NameThatFace.Tests.App_Start
             // act
             var routeData = _fakeRoutes.GetRouteData(_fakeContext);
 
-            Assert.NotNull(routeData);
-            Assert.Equal("QuizEasy", routeData.Values["controller"]);
-            Assert.Equal("Index", routeData.Values["action"]);
+            Assert.IsNotNull(routeData);
+            Assert.AreEqual("QuizEasy", routeData.Values["controller"]);
+            Assert.AreEqual("Index", routeData.Values["action"]);
         }
 
-        [Fact]
+        [TestMethod]
         public void EasyQuizNextRoute()
         {
             // assemble
@@ -69,9 +71,9 @@ namespace NameThatFace.Tests.App_Start
             // act
             var routeData = _fakeRoutes.GetRouteData(_fakeContext);
 
-            Assert.NotNull(routeData);
-            Assert.Equal("QuizEasy", routeData.Values["controller"]);
-            Assert.Equal("Next", routeData.Values["action"]);
+            Assert.IsNotNull(routeData);
+            Assert.AreEqual("QuizEasy", routeData.Values["controller"]);
+            Assert.AreEqual("Next", routeData.Values["action"]);
         }
 
 
