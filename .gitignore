@@ -1,2 +1,4 @@
-NameThatFace/obj
-NameThatFace/bin
+NameThatFace/obj/*.*
+NameThatFace/bin/*.*
+NameThatFace.Tests/bin/*.*
+NameThatFace.Tests/obj/*.*
